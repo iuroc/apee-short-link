@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEE 短网址</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.0/css/bootstrap.min.css" />
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top mb-3">
+        <a class="navbar-brand" href="#">APEE 短网址</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Github</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="input-url"><span class="text-danger">* </span>需要缩短的链接</label>
+                    <input type="url" id="input-url" class="form-control" placeholder="http://www.apee.top">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="input-password">添加密码</label>
+                    <input type="text" id="input-password" class="form-control" placeholder="1-20位，字母、数字、下划线">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="input-desc">描述内容</label>
+                    <input type="text" id="input-desc" class="form-control" placeholder="这个链接是做什么的...">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="input-desc">过期时间 / 天</label>
+                    <div class="input-group">
+                        <input type="number" id="input-desc" class="form-control" placeholder="1-365">
+                        <div class="input-group-append">
+                            <span class="input-group-text">天</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btns mt-3">
+            <button class="btn btn-primary mr-2">生成链接</button>
+            <button class="btn btn-danger">重置表单</button>
+        </div>
+    </div>
+</body>
+
+</html>
