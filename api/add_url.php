@@ -22,7 +22,7 @@ if ($Tool->encodeStr([$url, $password, $guoqi, $key_time]) != $key_val) {
     $Tool->error(901, '验证出错');
     die();
 } elseif (time() * 1000 - $key_time > 10000) {
-    $Tool->error(907, '请求过期');
+    $Tool->error(904, '请求过期');
     die();
 }
 
@@ -64,7 +64,7 @@ if (!parse_url($url) && strlen($url) < 2084) {
 
 // 没有密码和时间限制时，查询记录是否已经存在
 if (!$password && !$guoqi && !$endd) {
-    $sql = "SELECT * FROM `$table` WHERE `url` = '$url' AND `desc` = '$desc';";
+    $sql = "SELECT * FROM `$table` WHERE `url` = '$url' AND `desc` = '$desc' AND `password` = '';";
     $result = mysqli_query($conn, $sql);
     $Tool->sqlError($result);
     if (mysqli_num_rows($result) > 0) {
