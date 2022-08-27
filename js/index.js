@@ -64,28 +64,62 @@ function createWork() {
             clearForm()
             Poncon.load.result = true
             location.hash = '/result'
-            var keyNames = ['短链接', '分享链接', '原链接', '密码', '有效期', '描述']
-            var values = [
-                `<a class="short-url" href="${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}" target="_blank">${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}</a>`,
-                `<a href="#/share/${data.data.end}" target="_blank" class="text-danger">${location.origin}/#/share/${data.data.end}</a>`,
-                `${data.data.url}`,
-                `${data.data.password}`,
-                `${data.data.guoqi == 0 ? '永久有效' : '剩余 ' + data.data.guoqi + ' 天'}`,
-                `${$(data.data.desc).text()}`
-            ]
-            for (var i = 0, html = ''; i < keyNames.length; i++) {
-                if (values[i]) {
-                    html += `<div class="mb-2 text-truncate"><b>${keyNames[i]}：</b>${values[i]}</div>`
-                }
-            }
+            var html = makeHtml(data)
             $('.page-result .line-list').html(html)
             return
         }
         alert(data.msg)
     })
 }
+function makeHtml(data) {
+    var keyNames = ['短链接', '分享链接', '原链接', '密码', '有效期', '描述']
+    var values = [
+        `<a class="short-url" href="${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}" target="_blank">${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}</a>`,
+        `<a href="#/share/${data.data.end}" target="_blank" class="text-danger">${location.origin}/#/share/${data.data.end}</a>`,
+        `${data.data.url}`,
+        `${data.data.password}`,
+        `${data.data.guoqi == 0 ? '永久有效' : '剩余 ' + data.data.guoqi + ' 天'}`,
+        `${$(data.data.desc).text()}`
+    ]
+    for (var i = 0, html = ''; i < keyNames.length; i++) {
+        if (values[i]) {
+            html += `<div class="mb-2 text-truncate"><b>${keyNames[i]}：</b>${values[i]}</div>`
+        }
+    }
+    return html
+}
 function clearForm() {
     $('.page-home input').val('').removeClass('is-invalid')
+}
+function share_load(end, password, order) {
+    $.get('api/go_url.php', {
+        end: end,
+        type: 'json',
+        password: password
+    }, function (data) {
+        if (data.code == 200) {
+            var html = makeHtml(data)
+            $('.page-share .show-password').show()
+            $('.page-share .show-nopassword').hide()
+            $('.page-share .line-list').html(html)
+            return
+        } else if (data.code == 901) {
+            if (order == 'click') {
+                $('.page-share .show-nopassword .input-group').addClass('is-invalid')
+            } else {
+                $('.page-share .show-nopassword').show()
+                $('.page-share .show-password').hide()
+            }
+            return
+        }
+        location.hash = ''
+    })
+}
+function share_submitPassword() {
+    var password = $('.page-share .input-password').val()
+    var end = location.hash.split('/')[2]
+    history.replaceState({}, null, '#/share/' + end + '/' + password)
+    share_load(end, password, 'click')
 }
 var Poncon = {
     data: {},
@@ -116,6 +150,8 @@ $(document).ready(function () {
             }
         } else if (target == 'share') {
             var end = hash[2]
+            var password = hash[3]
+            share_load(end, password)
         } else {
             location.hash = ''
         }
@@ -127,5 +163,6 @@ $(document).ready(function () {
     })
     $('input').bind('keyup', function () {
         $(this).removeClass('is-invalid')
+        $(this).parent().removeClass('is-invalid')
     })
 })

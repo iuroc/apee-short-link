@@ -46,13 +46,13 @@ class Tool
      * | 901    | 验证出错       |
      * | 902    | 记录已经存在   |
      * | 903    | 数据库错误     |
-     * | 904    | 记录不存在     |
+     * | 904    | 记录或资源不存在或失效     |
      * | 905    | 类型或格式错误 |
      * | 906    | 资源获取失败   |
-     * | 907    | 资源或数据失效 |
      */
     function error($code, $msg)
     {
+        header('Content-type: application/json; charset=utf-8');
         echo json_encode(array(
             'code' => $code,
             'msg' => $msg
@@ -67,6 +67,7 @@ class Tool
      */
     function sqlError($result)
     {
+        header('Content-type: application/json; charset=utf-8');
         if (!$result) {
             $this->error(903, '数据库错误');
         }
@@ -81,6 +82,7 @@ class Tool
      */
     function success($msg, $data)
     {
+        header('Content-type: application/json; charset=utf-8');
         echo json_encode(array(
             'code' => 200,
             'msg' => $msg,

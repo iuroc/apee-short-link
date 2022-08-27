@@ -11,6 +11,7 @@ use Tool\Tool;
 $Tool = new Tool();
 $end = $Tool->defalutGetData($_GET, 'end', '');
 $password = $Tool->defalutGetData($_GET, 'password', '');
+$type = $Tool->defalutGetData($_GET, 'type', 'cdx');
 $mysql = $config['mysql'];
 $table = $config['table']['url'];
 
@@ -33,12 +34,19 @@ $Tool->sqlError($result);
 
 // 查找URL
 $now_time = time();
-$sql = "SELECT * FROM `$table` WHERE `end` = '$end' AND `password` = '$password' AND ((`create_time` + `guoqi` * 24 * 3600 > $now_time) OR (`guoqi` = 0))";
+$sql = "SELECT * FROM `$table` WHERE `end` = '$end' AND ((`create_time` + `guoqi` * 24 * 3600 > $now_time) OR (`guoqi` = 0))";
 $result = mysqli_query($conn, $sql);
 $Tool->sqlError($result);
 if (mysqli_num_rows($result) == 0) {
-    header('Location: /');
-    die();
+    $Tool->error(904, '链接不存在或失效');
 }
 $row = mysqli_fetch_assoc($result);
-header('Location: ' . $row['url']);
+if ($row['password'] != $password) {
+    $Tool->error(901, '密码错误');
+}
+if ($type == 'cdx') {
+    header('Location: ' . $row['url']);
+} elseif ($type == 'json') {
+    unset($row['id']);
+    $Tool->success('获取成功', $row);
+}
