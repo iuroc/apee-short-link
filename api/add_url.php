@@ -4,6 +4,7 @@
  * 增加网址记录
  */
 header('Content-type: application/json; charset=utf-8');
+sleep(1);
 $url = defalutGetData($_POST, 'a', '');
 $password = defalutGetData($_POST, 'b', '');
 $desc = defalutGetData($_POST, 'c', '');
@@ -25,8 +26,7 @@ $mysql = $config['mysql'];
 $table = $config['table']['url'];
 $conn = mysqli_connect($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
 mysqli_set_charset($conn, "utf8");
-$end = defalutGetData($_POST, 'end', endIdGood());
-
+$end = defalutGetData($_POST, 'g', endIdGood());
 // 初始化数据表
 $sql = "CREATE TABLE IF NOT EXISTS `$table` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -48,14 +48,14 @@ if (!preg_match('/^https?:\/\/(\w|\.|-)+:?\d*?(\/.*)?$/', $url) && strlen($url) 
     error(905, '密码格式错误，要求1-20位数字、字母、下划线');
 } elseif (mb_strlen($desc) > 200) {
     error(905, '描述文本长度不能超过200');
-} elseif ($guoqi < 0 || $guoqi > 365) {
-    error(905, '有效天数必须是1-365的整数');
-} elseif (!preg_match('/^\w{6,20}$/', $end)) {
+} elseif ($guoqi < 0 || $guoqi > 10000) {
+    error(905, '有效天数必须是1-10000的整数');
+} elseif ($end && !preg_match('/^\w{6,20}$/', $end)) {
     error(905, '自定义后缀格式错误，要求6-20位数字、字母、下划线');
 }
 
 // 没有密码和时间限制时，查询记录是否已经存在
-if (!$password && !$guoqi) {
+if (!$password && !$guoqi && !$end) {
     $sql = "SELECT * FROM `$table` WHERE `url` = '$url' AND `desc` = '$desc';";
     $result = mysqli_query($conn, $sql);
     sqlError($result);
@@ -71,6 +71,12 @@ if (!$password && !$guoqi) {
 // $sql = "DELETE FROM `$table` WHERE create_time + guoqi * 24 * 3600 < $create_time";
 // mysqli_query($conn, $sql);
 
+$sql = "SELECT `end` FROM `$table` WHERE `end` = '$end';";
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+    error(902, '后缀已存在，请换一个试试');
+}
+
 // 递归查询后缀是否存在，存在则重新生成
 function endIdGood()
 {
@@ -84,7 +90,6 @@ function endIdGood()
         endIdGood();
     }
 }
-
 // 插入记录
 $sql = "INSERT INTO `$table` (`url`, `password`, `desc`, `guoqi`, `end`, `create_time`) VALUES ('$url', '$password', '$desc', $guoqi, '$end', $create_time);";
 $result = mysqli_query($conn, $sql);
@@ -107,8 +112,8 @@ success('生成成功', array(
  */
 function defalutGetData($array, $key, $default)
 {
-    $v = isset($array[$key]) ? $array[$key] : $default;
-    return addslashes(isset($array[$key]) ? $array[$key] : $default);
+    $v = isset($array[$key]) && $array[$key] != '' ? $array[$key] : $default;
+    return addslashes($v);
 }
 
 /**

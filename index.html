@@ -5,20 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEE 短网址</title>
+    <title>APEE 短网址生成平台</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.0/css/bootstrap.min.css" />
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .show-2 {
-            display: none;
-        }
-    </style>
+    <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script src="js/index.js"></script>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top mb-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top mb-4">
         <a class="navbar-brand" href="#">APEE 短网址</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,73 +30,78 @@
         </div>
     </nav>
     <div class="container mb-4">
-        <div class="row show-1 mb-1">
-            <div class="col-lg-8 col-md-7">
-                <div class="form-group">
-                    <label for="input-url"><span class="text-danger">* </span>需要缩短的链接（其他项可留空）</label>
-                    <input type="url" id="input-url" class="form-control" placeholder="http://www.apee.top"
-                        autocomplete="off">
-                    <div class="invalid-feedback">
-                        网址格式错误
+        <div class="page-home page-oyp" style="display: none;">
+            <div class="row mb-1">
+                <div class="col-lg-8 col-md-7">
+                    <div class="form-group">
+                        <label for="input-url"><span class="text-danger">* </span>需要缩短的链接（其他项可留空）</label>
+                        <input type="url" id="input-url" class="form-control" placeholder="http://www.apee.top"
+                            autocomplete="off">
+                        <div class="invalid-feedback">
+                            网址格式错误
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5">
+                    <div class="form-group">
+                        <label for="input-password">添加密码</label>
+                        <input type="text" id="input-password" class="form-control" placeholder="1-20位，字母、数字、下划线" autocomplete="off">
+                        <div class="invalid-feedback">
+                            格式：1-20位，字母、数字、下划线
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input-desc">描述内容</label>
+                        <input type="text" id="input-desc" class="form-control" placeholder="这个链接是做什么的..." autocomplete="off">
+                        <div class="invalid-feedback">
+                            文本长度不能超过200
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input-day">过期时间 / 天</label>
+                        <input type="number" id="input-day" class="form-control" min="1" max="10000"
+                            placeholder="1-10000，默认无限" autocomplete="off">
+                        <div class="invalid-feedback">
+                            格式：1-10000的整数
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input-end">自定义后缀</label>
+                        <input type="text" id="input-end" class="form-control" placeholder="6-20位字母，默认随机生成" autocomplete="off">
+                        <div class="invalid-feedback">
+                            格式：6-20位字母
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-5">
-                <div class="form-group">
-                    <label for="input-password">添加密码</label>
-                    <input type="text" id="input-password" class="form-control" placeholder="1-20位，字母、数字、下划线">
-                    <div class="invalid-feedback">
-                        格式：1-20位，字母、数字、下划线
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="input-desc">描述内容</label>
-                    <input type="text" id="input-desc" class="form-control" placeholder="这个链接是做什么的...">
-                    <div class="invalid-feedback">
-                        文本长度不能超过200
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="input-day">过期时间 / 天</label>
-                    <input type="number" id="input-day" class="form-control" min="1" max="365" placeholder="1-365，默认无限">
-                    <div class="invalid-feedback">
-                        格式：1-365的整数
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="input-end">自定义后缀</label>
-                    <input type="text" id="input-end" class="form-control" placeholder="6-20位字母，默认随机生成">
-                    <div class="invalid-feedback">
-                        格式：6-20位字母
-                    </div>
-                </div>
+            <div class="btns" style="font-size: 0;">
+                <button class="btn btn-primary mr-3 createWork" onclick="createWork()">生成链接</button>
+                <button class="btn btn-danger" onclick="clearForm()">重置表单</button>
             </div>
         </div>
-        <div class="btns">
-            <button class="btn btn-primary mr-2 show-1" onclick="createWork()">生成链接</button>
-            <button class="btn btn-danger show-1">重置表单</button>
-        </div>
-        <div class="card show-2">
-            <div class="card-header">生成成功</div>
-            <div class="card-body">
-                <div class="line-list mb-3">
-                    <div class="mb-2"><b>短链接：</b><a href="https://ouyangpeng.top"
-                            target="_blank">https://s.apee.top/aSha7s</a></div>
-                    <div class="mb-2"><b>分享页面：</b>https://s.apee.top/s/aSha7s</div>
-                    <div class="mb-2"><b>原链接：</b>https://www.apee.top</div>
-                    <div class="mb-2"><b>密码：</b>243hh89dsf</div>
-                    <div class="mb-2"><b>有效期：</b>永久有效</div>
-                    <div class="mb-2"><b>描述：</b>这是一个很好的链接。</div>
-                </div>
-                <div class="btns">
-                    <button class="btn btn-primary mr-2">复制短链</button>
-                    <button class="btn btn-outline-danger">返回</button>
+        <div class="page-result page-oyp" style="display: none;">
+            <div class="card shadow-sm">
+                <div class="card-header">生成成功</div>
+                <div class="card-body">
+                    <div class="line-list mb-3">
+                        <!-- <div class="mb-2"><b>短链接：</b><a href="https://ouyangpeng.top"
+                                target="_blank">https://s.apee.top/aSha7s</a></div>
+                        <div class="mb-2"><b>分享页面：</b>https://s.apee.top/s/aSha7s</div>
+                        <div class="mb-2"><b>原链接：</b>https://www.apee.top</div>
+                        <div class="mb-2"><b>密码：</b>243hh89dsf</div>
+                        <div class="mb-2"><b>有效期：</b>永久有效</div>
+                        <div class="mb-2"><b>描述：</b>这是一个很好的链接。</div> -->
+                    </div>
+                    <div class="btns" style="font-size: 0;">
+                        <button class="btn btn-primary mr-3">复制短链</button>
+                        <a class="btn btn-outline-danger" href="#">返回</a>
+                    </div>
                 </div>
             </div>
         </div>
