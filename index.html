@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.0/css/bootstrap.min.css" />
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .show-2 {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,40 +33,64 @@
         </div>
     </nav>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row show-1 mb-1">
+            <div class="col-lg-8 col-md-7">
                 <div class="form-group">
-                    <label for="input-url"><span class="text-danger">* </span>需要缩短的链接</label>
+                    <label for="input-url"><span class="text-danger">* </span>需要缩短的链接（其他项可留空）</label>
                     <input type="url" id="input-url" class="form-control" placeholder="http://www.apee.top">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-lg-4 col-md-5">
                 <div class="form-group">
                     <label for="input-password">添加密码</label>
                     <input type="text" id="input-password" class="form-control" placeholder="1-20位，字母、数字、下划线">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="input-desc">描述内容</label>
                     <input type="text" id="input-desc" class="form-control" placeholder="这个链接是做什么的...">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
-                    <label for="input-desc">过期时间 / 天</label>
+                    <label for="input-day">过期时间 / 天</label>
                     <div class="input-group">
-                        <input type="number" id="input-desc" class="form-control" placeholder="1-365">
+                        <input type="number" id="input-day" class="form-control" min="1" max="365" placeholder="1-365，默认无限">
                         <div class="input-group-append">
                             <span class="input-group-text">天</span>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="input-end">自定义后缀</label>
+                    <div class="input-group">
+                        <input type="text" id="input-end" class="form-control" placeholder="默认随机6位">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="btns mt-3">
-            <button class="btn btn-primary mr-2">生成链接</button>
-            <button class="btn btn-danger">重置表单</button>
+        <div class="btns">
+            <button class="btn btn-primary mr-2 show-1">生成链接</button>
+            <button class="btn btn-danger show-1">重置表单</button>
+        </div>
+        <div class="card show-2">
+            <div class="card-header">生成成功</div>
+            <div class="card-body">
+                <div class="mb-2"><b>短链接：</b><a href="https://ouyangpeng.top"
+                        target="_blank">https://s.apee.top/aSha7s</a></div>
+                <div class="mb-2"><b>分享链接：</b>https://s.apee.top/s/aSha7s</div>
+                <div class="mb-2"><b>原链接：</b>https://www.apee.top</div>
+                <div class="mb-2"><b>密码：</b>243hh89dsf</div>
+                <div class="mb-2"><b>有效期：</b>永久有效</div>
+                <div class="mb-3"><b>描述：</b>这是一个很好的链接。</div>
+                <div class="btns">
+                    <button class="btn btn-primary mr-2">复制短链</button>
+                    <button class="btn btn-outline-danger">返回</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
