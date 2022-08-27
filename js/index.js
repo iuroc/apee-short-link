@@ -24,7 +24,7 @@ function createWork() {
     // 校验参数
     try {
         new URL(url)
-    } catch {
+    } catch (err) {
         $('#input-url').addClass('is-invalid').focus()
         return
     }
