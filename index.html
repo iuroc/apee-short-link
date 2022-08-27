@@ -115,7 +115,8 @@
                 <div class="col-xl-4 mx-auto">
                     <div class="text-center mb-3 h5">链接已加密，请输入密码</div>
                     <div class="input-group shadow-sm">
-                        <input type="text" class="form-control input-password" placeholder="密码" autocomplete="off">
+                        <input type="text" class="form-control input-password" placeholder="密码" autocomplete="off"
+                            onkeyup="event.keyCode==13?share_submitPassword():null">
                         <div class="input-group-append">
                             <button class="btn btn-success" onclick="share_submitPassword()">确定</button>
                         </div>
