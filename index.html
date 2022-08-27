@@ -14,6 +14,7 @@
             display: none;
         }
     </style>
+    <script src="js/index.js"></script>
 </head>
 
 <body>
@@ -38,42 +39,57 @@
                 <div class="form-group">
                     <label for="input-url"><span class="text-danger">* </span>需要缩短的链接（其他项可留空）</label>
                     <input type="url" id="input-url" class="form-control" placeholder="http://www.apee.top">
+                    <div class="invalid-feedback">
+                        网址格式错误
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-5">
                 <div class="form-group">
                     <label for="input-password">添加密码</label>
                     <input type="text" id="input-password" class="form-control" placeholder="1-20位，字母、数字、下划线">
+                    <div class="invalid-feedback">
+                        格式：1-20位，字母、数字、下划线
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="input-desc">描述内容</label>
                     <input type="text" id="input-desc" class="form-control" placeholder="这个链接是做什么的...">
+                    <div class="invalid-feedback">
+                        文本长度不能超过200
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="input-day">过期时间 / 天</label>
                     <div class="input-group">
-                        <input type="number" id="input-day" class="form-control" min="1" max="365" placeholder="1-365，默认无限">
+                        <input type="number" id="input-day" class="form-control" min="1" max="365"
+                            placeholder="1-365，默认无限">
                         <div class="input-group-append">
                             <span class="input-group-text">天</span>
                         </div>
+                        <div class="invalid-feedback">
+                            格式：1-365的整数
+                        </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="input-end">自定义后缀</label>
-                    <div class="input-group">
-                        <input type="text" id="input-end" class="form-control" placeholder="默认随机6位">
+                    <input type="text" id="input-end" class="form-control" placeholder="6-20位字母，默认随机生成">
+                    <div class="invalid-feedback">
+                        格式：6-20位字母
                     </div>
                 </div>
             </div>
         </div>
         <div class="btns">
-            <button class="btn btn-primary mr-2 show-1">生成链接</button>
+            <button class="btn btn-primary mr-2 show-1" onclick="createWork()">生成链接</button>
             <button class="btn btn-danger show-1">重置表单</button>
         </div>
         <div class="card show-2">

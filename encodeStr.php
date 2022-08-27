@@ -11,4 +11,9 @@ function encodeStr($array)
     }
     return $key_val;
 }
-echo encodeStr([123]);
+echo encodeStr([
+    "http://localhost:3000/index.html",
+    "",
+    "",
+    ""
+]);

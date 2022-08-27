@@ -9,13 +9,17 @@ $password = defalutGetData($_POST, 'b', '');
 $desc = defalutGetData($_POST, 'c', '');
 $guoqi = (int)defalutGetData($_POST, 'd', 0);
 $key_time = defalutGetData($_POST, 'e', '');
-$key_val = base64_decode(defalutGetData($_POST, 'f', '')); // 双层base64
+$key_val = defalutGetData($_POST, 'f', ''); // 双层base64   
+
+
 
 if (encodeStr([$url, $password, $guoqi, $key_time]) != $key_val) {
     error(901, '验证出错');
     die();
+} elseif (time() * 1000 - $key_time > 2000) {
+    error(907, '请求过期');
+    die();
 }
-
 
 $create_time = time();
 require '../config.php';
@@ -136,6 +140,7 @@ function randId($length)
  * | 904    | 记录不存在     |
  * | 905    | 类型或格式错误 |
  * | 906    | 资源获取失败   |
+ * | 907    | 资源或数据失效 |
  */
 function error($code, $msg)
 {
@@ -191,5 +196,5 @@ function encodeStr($array)
     for ($x = 0; $x < strlen($ks); $x++) {
         $key_val = str_replace($ks[$x], '/' . base64_encode('apee_' . $ks[$x]), $key_val);
     }
-    return $key_val;
+    return base64_encode(urlencode($key_val));
 }
