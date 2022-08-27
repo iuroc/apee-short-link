@@ -22,10 +22,13 @@ function createWork() {
     var guoqi = $('#input-day').val() || 0
     var end = $('#input-end').val()
     // 校验参数
-    if (url.search(/^https?:\/\/(\w|\.|-)+:?\d*?(\/.*)?$/) == -1 && !url.length < 2084) {
+    try {
+        new URL(url)
+    } catch {
         $('#input-url').addClass('is-invalid').focus()
         return
-    } else if (password.search(/^\w{0,20}$/) == -1) {
+    }
+    if (password.search(/^\w{0,20}$/) == -1) {
         $('#input-password').addClass('is-invalid').focus()
         return
     } else if (desc.length > 200) {
@@ -63,7 +66,7 @@ function createWork() {
             location.hash = '/result'
             var keyNames = ['短链接', '分享链接', '原链接', '密码', '有效期', '描述']
             var values = [
-                `<a href="${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}" target="_blank">${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}</a>`,
+                `<a class="short-url" href="${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}" target="_blank">${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}</a>`,
                 `<a href="#/${data.data.end}" target="_blank" class="text-danger">${location.origin}/#/${data.data.end}</a>`,
                 `${data.data.url}`,
                 `${data.data.password}`,
@@ -72,7 +75,7 @@ function createWork() {
             ]
             for (var i = 0, html = ''; i < keyNames.length; i++) {
                 if (values[i]) {
-                    html += `<div class="mb-2"><b>${keyNames[i]}：</b>${values[i]}</div>`
+                    html += `<div class="mb-2 text-truncate"><b>${keyNames[i]}：</b>${values[i]}</div>`
                 }
             }
             $('.page-result .line-list').html(html)
@@ -82,7 +85,7 @@ function createWork() {
     })
 }
 function clearForm() {
-    $('.page-home input').val('')
+    $('.page-home input').val('').removeClass('is-invalid')
 }
 var Poncon = {
     data: {},
@@ -90,6 +93,7 @@ var Poncon = {
 }
 history.scrollRestoration = 'manual'
 $(document).ready(function () {
+    new ClipboardJS('.copybtn')
     router(location.hash)
     function router(hash) {
         hash = hash.split('/')

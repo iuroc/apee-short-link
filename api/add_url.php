@@ -42,7 +42,7 @@ $result = mysqli_query($conn, $sql);
 sqlError($result);
 
 // 校验参数
-if (!preg_match('/^https?:\/\/(\w|\.|-)+:?\d*?(\/.*)?$/', $url) && strlen($url) < 2084) {
+if (!parse_url($url) && strlen($url) < 2084) {
     error(905, 'URL格式错误');
 } elseif (!preg_match('/^\w{0,20}$/', $password)) {
     error(905, '密码格式错误，要求1-20位数字、字母、下划线');
