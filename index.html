@@ -28,17 +28,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Github</a>
+                    <a class="nav-link" href="https://github.com/oyps/poncon-short-link" target="_blank">Github</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="container mb-4">
         <div class="row show-1 mb-1">
             <div class="col-lg-8 col-md-7">
                 <div class="form-group">
                     <label for="input-url"><span class="text-danger">* </span>需要缩短的链接（其他项可留空）</label>
-                    <input type="url" id="input-url" class="form-control" placeholder="http://www.apee.top">
+                    <input type="url" id="input-url" class="form-control" placeholder="http://www.apee.top"
+                        autocomplete="off">
                     <div class="invalid-feedback">
                         网址格式错误
                     </div>
@@ -65,17 +66,10 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="input-day">过期时间 / 天</label>
-                    <div class="input-group">
-                        <input type="number" id="input-day" class="form-control" min="1" max="365"
-                            placeholder="1-365，默认无限">
-                        <div class="input-group-append">
-                            <span class="input-group-text">天</span>
-                        </div>
-                        <div class="invalid-feedback">
-                            格式：1-365的整数
-                        </div>
+                    <input type="number" id="input-day" class="form-control" min="1" max="365" placeholder="1-365，默认无限">
+                    <div class="invalid-feedback">
+                        格式：1-365的整数
                     </div>
-
                 </div>
             </div>
             <div class="col-md-4">
@@ -95,13 +89,15 @@
         <div class="card show-2">
             <div class="card-header">生成成功</div>
             <div class="card-body">
-                <div class="mb-2"><b>短链接：</b><a href="https://ouyangpeng.top"
-                        target="_blank">https://s.apee.top/aSha7s</a></div>
-                <div class="mb-2"><b>分享链接：</b>https://s.apee.top/s/aSha7s</div>
-                <div class="mb-2"><b>原链接：</b>https://www.apee.top</div>
-                <div class="mb-2"><b>密码：</b>243hh89dsf</div>
-                <div class="mb-2"><b>有效期：</b>永久有效</div>
-                <div class="mb-3"><b>描述：</b>这是一个很好的链接。</div>
+                <div class="line-list mb-3">
+                    <div class="mb-2"><b>短链接：</b><a href="https://ouyangpeng.top"
+                            target="_blank">https://s.apee.top/aSha7s</a></div>
+                    <div class="mb-2"><b>分享页面：</b>https://s.apee.top/s/aSha7s</div>
+                    <div class="mb-2"><b>原链接：</b>https://www.apee.top</div>
+                    <div class="mb-2"><b>密码：</b>243hh89dsf</div>
+                    <div class="mb-2"><b>有效期：</b>永久有效</div>
+                    <div class="mb-2"><b>描述：</b>这是一个很好的链接。</div>
+                </div>
                 <div class="btns">
                     <button class="btn btn-primary mr-2">复制短链</button>
                     <button class="btn btn-outline-danger">返回</button>

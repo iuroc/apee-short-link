@@ -9,9 +9,7 @@ $password = defalutGetData($_POST, 'b', '');
 $desc = defalutGetData($_POST, 'c', '');
 $guoqi = (int)defalutGetData($_POST, 'd', 0);
 $key_time = defalutGetData($_POST, 'e', '');
-$key_val = defalutGetData($_POST, 'f', ''); // 双层base64   
-
-
+$key_val = defalutGetData($_POST, 'f', ''); // 双层base64
 
 if (encodeStr([$url, $password, $guoqi, $key_time]) != $key_val) {
     error(901, '验证出错');
@@ -194,7 +192,7 @@ function encodeStr($array)
     }
     $ks = 'YM=AN';
     for ($x = 0; $x < strlen($ks); $x++) {
-        $key_val = str_replace($ks[$x], '/' . base64_encode('apee_' . $ks[$x]), $key_val);
+        $key_val = str_replace($ks[$x], '/' . base64_encode($ks[$x] . '_apee'), $key_val);
     }
     return base64_encode(urlencode($key_val));
 }

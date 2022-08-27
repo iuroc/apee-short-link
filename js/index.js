@@ -10,7 +10,7 @@ function encodeStr(array) {
     ks[3] = 'A'
     ks[4] = 'N'
     ks.forEach(i => {
-        key_val = key_val.replaceAll(i, '/' + btoa('apee_' + i))
+        key_val = key_val.replaceAll(i, '/' + btoa(i + '_apee'))
     })
     return btoa(encodeURIComponent(key_val))
 }
@@ -39,6 +39,7 @@ function createWork() {
         $('#input-end').addClass('is-invalid').focus()
         return
     }
+    $('')
     var array = []
     array.push(url)
     array.push(password)
@@ -53,6 +54,13 @@ function createWork() {
         d: guoqi,
         e: d,
         f: key_val
+    }, function (data) {
+        if (data.code == 200) {
+            $('.show-1').hide()
+            $('.show-2').show()
+            return
+        }
+        alert(data.msg)
     })
 }
 
