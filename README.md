@@ -16,3 +16,6 @@
 - 填写 `config.php` 中的配置信息
 - 设置网站伪静态 `rewrite ^/(\w+)/?(\w*)$ /api/go_url.php?end=$1&password=$2;`
 - 部署完成，直接访问即可
+
+![](img/%E6%88%AA%E5%9B%BE_home.jpg)
+![](img/%E6%88%AA%E5%9B%BE_result.jpg)

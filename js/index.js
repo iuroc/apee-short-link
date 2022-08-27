@@ -67,7 +67,7 @@ function createWork() {
             var keyNames = ['短链接', '分享链接', '原链接', '密码', '有效期', '描述']
             var values = [
                 `<a class="short-url" href="${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}" target="_blank">${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}</a>`,
-                `<a href="#/${data.data.end}" target="_blank" class="text-danger">${location.origin}/#/${data.data.end}</a>`,
+                `<a href="#/share/${data.data.end}" target="_blank" class="text-danger">${location.origin}/#/share/${data.data.end}</a>`,
                 `${data.data.url}`,
                 `${data.data.password}`,
                 `${data.data.guoqi == 0 ? '永久有效' : '剩余 ' + data.data.guoqi + ' 天'}`,
@@ -114,6 +114,8 @@ $(document).ready(function () {
             if (!Poncon.load.result) {
                 location.hash = ''
             }
+        } else if (target == 'share') {
+            var end = hash[2]
         } else {
             location.hash = ''
         }
