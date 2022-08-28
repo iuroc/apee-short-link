@@ -75,7 +75,7 @@ function makeHtml(data) {
     var keyNames = ['短链接', '分享链接', '原链接', '密码', '有效期', '描述']
     var values = [
         `<a class="short-url" href="${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}" target="_blank">${location.origin}/${data.data.end}${data.data.password ? `/${data.data.password}` : ''}</a>`,
-        `<a href="#/share/${data.data.end}" target="_blank" class="text-danger">${location.origin}/#/share/${data.data.end}</a>`,
+        `<a href="/s/${data.data.end}" target="_blank" class="text-danger">${location.origin}/s/${data.data.end}</a>`,
         `${data.data.url}`,
         `${data.data.password}`,
         `${data.data.guoqi == 0 ? '永久有效' : '剩余 ' + data.data.guoqi + ' 天'}`,

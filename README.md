@@ -14,7 +14,11 @@
 - 下载仓库源代码，上传到网站目录
 - 复制 `config.default.php`，命名为 `config.php`
 - 填写 `config.php` 中的配置信息
-- 设置网站伪静态 `rewrite ^/(\w+)/?(\w*)$ /api/go_url.php?end=$1&password=$2;`
+- 设置网站伪静态
+
+      rewrite "^/s/(\w*)$" "/api/go_share.php?end=$1" break;
+      rewrite "^/(\w+)/?(\w*)$" "/api/go_url.php?end=$1&password=$2" break;
+
 - 部署完成，直接访问即可
 
 ## 项目特点
