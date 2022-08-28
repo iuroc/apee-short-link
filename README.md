@@ -32,5 +32,6 @@
 - 通过伪静态对 URL 重写
 - 单独设计加密算法，结合代码混淆，实现对 API 的保护
 
+![](img/%E6%88%AA%E5%9B%BE_password.jpg)
 ![](img/%E6%88%AA%E5%9B%BE_home.jpg)
 ![](img/%E6%88%AA%E5%9B%BE_result.jpg)
