@@ -4,7 +4,7 @@
 
 ## 项目信息
 
-- 作者：欧阳鹏（鹏优创工作室）
+- 作者：https://github.com/oyps
 - 主页：https://apee.top
 - 开发时间：2022年8月27日
 
